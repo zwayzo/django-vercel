@@ -1,0 +1,18 @@
+pipenv install django
+pipenv shell (activate the virtual environemnet)
+
+or
+
+python3 -m venv name_of_env
+source name_of_env/bin/activate
+
+django-admin (verify it s installed)
+
+django-admin startproject back . (creat project make this the home directory)
+commande palette than run pipenv --venv and put it in the path with adding /bin/python
+
+/home/moazzedd/.local/share/virtualenvs/django-rJUw1fdp/bin/activate
+
+
+python manage.py runserver (start the server on the project)
+python manage.py startapp name_of_app  

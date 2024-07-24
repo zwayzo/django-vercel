@@ -1,0 +1,101 @@
+*
+{
+    padding:  0;
+    margin:  0;
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: bisque;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/d/d8/United_Nations_Flags_-_cropped.jpg') no-repeat center center fixed;
+    background-size: cover;
+    /* background: url("https://upload.wikimedia.org/wikipedia/commons/f/f7/Notre-Dame_de_Paris%2C_4_October_2017.jpg"); */
+    background-size: 2400px;
+    color: #4CAF50;
+    line-height: 1.6;
+}
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #203030;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    padding: 2rem;
+    margin-top: 2rem;
+    border-radius: 8px;
+}
+
+header {
+    background-color: #2a4e4e;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    border-top-left-radius: 8px;
+    border-top: #203030;
+    border-top-right-radius: 8px;
+}
+footer {
+    text-align: center;
+    padding: 18px;
+    background-color: #2a4e4e;
+    color: 27bdbd;
+    /* position: fixed; */
+    
+    width: 100%;
+    bottom: 0;
+}
+h1 {
+    color: bisque;
+}
+
+h2, h3 {
+    color: bisque;
+}
+
+p{
+    font-size: 1.2em;
+    line-height: 1.6;
+    left: 10px;
+    color: bisque;
+    margin-bottom: 20px;
+    /* bottom: -500px; */
+}
+Main Section Styles
+.main-section {
+    padding-top: 1rem;
+}
+.room-list {
+    margin-top: 1.5rem;
+}
+.room-item {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: #2a4e4e;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+.room-item h3 {
+    margin-bottom: 0.5rem;
+}
+.room-item a {
+    color: bisque;
+    text-decoration: none;
+}
+.room-item a:hover {
+    text-decoration: underline;
+}
+
+.button {
+    display: inline-block;
+    font-size: 16px;
+    color: bisque;
+    background-color: #2a4e4e;
+    position: absolute;
+    bottom: -98px;
+    left: 10px;
+    
+    
+}
+
