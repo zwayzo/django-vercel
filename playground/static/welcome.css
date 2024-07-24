@@ -1,0 +1,93 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/d/d8/United_Nations_Flags_-_cropped.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+header {
+    background-color: #2a4e4e;
+    color: bisque;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 5px solid #2a4e4e;
+}
+
+h3 {
+    position: absolute;
+    right: 40px; 
+    bottom: -20px;
+    /* left: 50; */
+    display: inline-block;
+    /* padding-top: 1; */
+    padding-right: 1;
+    padding-bottom: 1;
+    padding-left: 1;
+    font-size: 16px;
+    /* background-color: white; */
+    /* color: #fff; */
+    text-decoration: none;
+    border: none;
+    /* border-radius: 5px; */
+    cursor: pointer;
+}
+
+.title {
+    color: solid bisque;
+}
+
+
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #2a4e4e;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+h1, h2 {
+    color: solid bisque;
+}
+p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    left: 10px;
+    color: bisque;
+}
+.highlight {
+    color: #d32f2f;
+    font-weight: bold;
+}
+
+.flags {
+    /* display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 20px 0; */
+}
+.flags img {
+    width: 100px;
+    height: auto;
+    margin: 10px;
+    border: 2px solid #6fd9ff;
+}
+.footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #2a4e4e;
+    color: 27bdbd;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: bisque;
+    background-color: #2a4e4e;
+    border: none;
+    border-radius: 5px;
+    /* text-decoration: none; */
+    cursor: pointer;
+}

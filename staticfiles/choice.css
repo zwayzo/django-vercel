@@ -1,0 +1,75 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url("https://upload.wikimedia.org/wikipedia/commons/f/f7/Notre-Dame_de_Paris%2C_4_October_2017.jpg");
+    background-size: 2400px;
+    color: #4CAF50;
+    line-height: 1.6;
+}
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #203030;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    padding: 2rem;
+    margin-top: 2rem;
+    border-radius: 8px;
+}
+
+header {
+    /* background-color: #d0df51; */
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+footer {
+    background-color: #27bdbd;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    bottom: 0;
+    width: 100%;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    padding: 5px;
+}
+h1 {
+    color: black;
+}
+
+h2, h3 {
+    color: #27bdbd;
+}
+
+p{
+    color: black;
+    font-size: 20px;
+}
+/* Main Section Styles */
+.main-section {
+    padding-top: 1rem;
+}
+.room-list {
+    margin-top: 1.5rem;
+}
+.room-item {
+    /* background-color: #f9f9f9; */
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: #2a4e4e;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+.room-item h3 {
+    margin-bottom: 0.5rem;
+}
+.room-item a {
+    color: #2dc4c4;
+    text-decoration: none;
+}
+.room-item a:hover {
+    text-decoration: underline;
+}
