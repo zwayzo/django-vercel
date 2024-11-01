@@ -1,4 +1,4 @@
-#!/home/moazzedd/Desktop/django/myenv/bin/python3
+#!/Users/zizo/Desktop/django-vercel/myenv/bin/python3.10
 # -*- coding: utf-8 -*-
 import re
 import sys
