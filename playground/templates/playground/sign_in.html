@@ -116,7 +116,7 @@
                 <input type="password" id="password" name="password" required>
             </div>
             <button type="submit" class="signin-button">Sign In</button>
-            {% block error %}{% endblock %}
+            {% block invalid_params %}{% endblock %}
         </form>
         <a href="{% url 'sign_up' %}" class="signup-link">Don't have an account? Sign up</a>
     </div>
