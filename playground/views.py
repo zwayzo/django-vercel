@@ -23,25 +23,17 @@ def sign_in(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        print("Received username:", username)
-        print("Received password:", password)
         try:
-            print("test")
             user = User.objects.get(name=username, password=password)
-            # print("User found:", user.name)
-            # print("Password in database:", user.password)
             return HttpResponse("GOOOOOOOOOD")
         except User.DoesNotExist:
             return render(request, 'playground/sign_in_failed.html')
     return render(request, 'playground/sign_in.html')    
-            # return HttpResponse("GOOOOOOOOOD2")
 
 
 def sign_up(request):
     return render(request, 'playground/sign_up.html')
 
-def test(request):
-    return HttpResponse('tegajhaahahahJAJDJDLK')
 
 
 def playground(request, pk=None):
