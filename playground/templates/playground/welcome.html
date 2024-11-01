@@ -1,149 +1,38 @@
-{% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-     
-    <meta charset="UTF-8">
-             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welccome to Our School of Learning Languages</title>
-</head>
 
-<style>
-    h2 {
-        color: bisque;
-    }
-
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background: url('https://upload.wikimedia.org/wikipedia/commons/d/d8/United_Nations_Flags_-_cropped.jpg') no-repeat center center fixed;
-        background-size: cover;
-    }
-    header {
-        background-color: #2a4e4e;
-        color: bisque;
-        padding: 20px;
-        text-align: center;
-        border-bottom: 5px solid #2a4e4e;
-    }
-    
-    h3 {
-        position: absolute;
-        right: 40px; 
-        bottom: -20px;
-        /* left: 50; */
-        display: inline-block;
-        /* padding-top: 1; */
-        padding-right: 1;
-        padding-bottom: 1;
-        padding-left: 1;
-        font-size: 16px;
-        /* background-color: white; */
-        /* color: #fff; */
-        text-decoration: none;
-        border: none;
-        /* border-radius: 5px; */
-        cursor: pointer;
-    }
-    
-    .title {
-        color: solid bisque;
-    }
-    
-    
-    
-    .container {
-        max-width: 800px;
-        margin: 20px auto;
-        padding: 20px;
-        background-color: #2a4e4e;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    h1, h2 {
-        color: solid bisque;
-    }
-    p {
-        font-size: 1.2em;
-        line-height: 1.6;
-        left: 10px;
-        color: bisque;
-    }
-    .highlight {
-        color: #d32f2f;
-        font-weight: bold;
-    }
-    
-    .flags {
-        /* display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        margin: 20px 0; */
-    }
-    .flags img {
-        width: 100px;
-        height: auto;
-        margin: 10px;
-        border: 2px solid #6fd9ff;
-    }
-    .footer {
-        text-align: center;
-        padding: 10px;
-        background-color: #2a4e4e;
-        color: 27bdbd;
-        position: fixed;
-        width: 100%;
-        bottom: 0;
-    }
-    .button {
-        display: inline-block;
-        padding: 10px 20px;
-        font-size: 16px;
-        color: bisque;
-        background-color: #2a4e4e;
-        border: none;
-        border-radius: 5px;
-        /* text-decoration: none; */
-        cursor: pointer;
-    }
-    
-</style>
-<body>
-    <header>
-        <h1>Welcome to Our School of Learning Languages</h1>
-    </header>
-    <div class="container">
-        <h2>Explore the World Through Language</h2>
-        <p>
-            At our school, we offer a wide range of language courses designed to help you communicate effectively in today's globalized world. Whether you're looking to learn Spanish, French, German, Chinese, or any other language, we have the right course for you.
-        </p>
-        <div class="flags">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Flag_of_the_United_Kingdom_%283-5%29.svg" alt="UK Flag">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Spain.svg" alt="Spain Flag">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Flag_of_France.svg" alt="France Flag">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Germany_%283-2%29.svg" alt="Germany Flag">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Flag_of_Italy_%28WFB_2013%29.gif" alt="Italy Flag">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Flag_of_Brazil.svg" alt="Brazil Flag">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Portugal.svg" alt="China Flag">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Flag_of_India.svg" alt="India Flag">
-            
-            <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Flag_of_the_Netherlands.svg" alt="holland Flag">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/7/73/Flag_of_Romania.svg" alt="romania Flag">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/Flag_of_South_Korea.svg" alt="south korea Flag">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Flag_of_Russia.svg" alt="Rusia Flag">
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <title>{% block title %}{% endblock %} | Puddle</title>
+    </head>
+    <body>
+        <nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200">
+            <a href="/" class="text-xl font-semibold">Puddle</a>
+            <div class="space-x-6">
+                <a href="#" class="text-lg font-semibold hover:text-gray-500">New item</a>
+                <a href="#" class="text-lg font-semibold hover:text-gray-500">Browse</a>
+                <a href="{% url 'sign_up' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Sign up</a>
+                <a href="{% url 'sign_in' %}" class="px-6 py-3 text-lg font-semibold bg-gray-500 text-white rounded-xl hover:bg-teal-700">Sign in</a>
+            </div>
+        </nav>
+        <div class="px-6 py-6">
+        {% block content %}
+        {% endblock %}
         </div>
-        <h2>Why Learn with Us?</h2>
-        <p>
-            Our experienced instructors, immersive curriculum, and friendly community provide the perfect environment for language learning. Join us and become part of a global community of learners.
-        </p>
-        
-
-    </div>
-    <div class="footer">
-        <div class="b">
-            <h3><a href="{% url 'playground' %}" class="button">Go to choices</a></h3>
-        </div>
-        <p>Join us and start your language learning journey today!</p>
-    </div>
-</body>
+        <footer class="py-6 px-6 flex justify-between bg-gray-800">
+            <div class=w-2/3 pr-10>
+                <h3 class="mb-5 font-semibold text-gray-400">About</h3>
+                <p class="text-lg text-gray-500">iieieieiieieieieieiieieieiei</p>
+            </div>
+            <div class="w-1/3">
+                <h3 class="mb-5 font-semibold text-gray-400">Menu</h3>
+                <ul class="space-y-2">
+                    <li><a href="{% url 'contact' %}" class="text-lg text-gray-500 hover:text-teal-700">About</a></li>
+                    <li><a href="{% url 'contact' %}" class="text-lg text-gray-500 hover:text-teal-700">Contact</a></li>
+                    <li><a href="{% url 'contact' %}" class="text-lg text-gray-500 hover:text-teal-700">Privacy policy</a></li>
+                    <li><a href="{% url 'contact' %}" class="text-lg text-gray-500 hover:text-teal-700">Term of use</a></li>
+    </body>
 </html>

@@ -15,3 +15,16 @@ class Room(models.Model):
     def __str__(self):
         return self.name
     
+
+class User(models.Model):
+    name = models.CharField(max_length=50, primary_key=True)
+    age = models.IntegerField()
+    password = models.CharField(max_length=50)
+
+    class Meta:
+        db_table = 'table1'  # Specify the name of the table if it doesn't follow Django's naming conventions
+        managed = False  # This tells Django not to manage the table (no migrations, etc.)
+        
+    def __str__(self):
+        return self.name
+
