@@ -5,6 +5,7 @@ import logging
 # Create your views here.
 
 from .models import Room, User
+from .forms import SignUpForm
 
 
 rooms = [
@@ -32,6 +33,17 @@ def sign_in(request):
 
 
 def sign_up(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            user = User(name=name, email=email, password=password)
+            user.save()
+            return HttpResponse("GOOOO222222D")
+        else:
+            print(form.errors)
     return render(request, 'playground/sign_up.html')
 
 

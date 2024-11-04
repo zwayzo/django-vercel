@@ -1,5 +1,5 @@
 from django.db import models
-
+from django import forms
 # Create your models here.
 
 
@@ -18,7 +18,7 @@ class Room(models.Model):
 
 class User(models.Model):
     name = models.CharField(max_length=50, primary_key=True)
-    age = models.IntegerField()
+    email = models.EmailField(max_length=254, blank=True)
     password = models.CharField(max_length=50)
 
     class Meta:
@@ -27,4 +27,3 @@ class User(models.Model):
         
     def __str__(self):
         return self.name
-
