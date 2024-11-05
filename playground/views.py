@@ -5,19 +5,20 @@ import logging
 # Create your views here.
 
 from .models import Room, User
+from item.models import Category, Item
 from .forms import SignUpForm
 
 
-rooms = [
-    {'id': 1, 'name': 'English'},
-    {'id': 2, 'name': 'Spanish'},
-    {'id': 3, 'name': 'Frensh'},
-    {'id': 4, 'name': 'German'},
-    {'id': 5, 'name': 'Portugais'},
-    {'id': 6, 'name': 'Russe'},
-    {'id': 7, 'name': 'Italien'},
-    {'id': 8, 'name': 'Korean'},
-]
+# rooms = [
+#     {'id': 1, 'name': 'English'},
+#     {'id': 2, 'name': 'Spanish'},
+#     {'id': 3, 'name': 'Frensh'},
+#     {'id': 4, 'name': 'German'},
+#     {'id': 5, 'name': 'Portugais'},
+#     {'id': 6, 'name': 'Russe'},
+#     {'id': 7, 'name': 'Italien'},
+#     {'id': 8, 'name': 'Korean'},
+# ]
 
 
 def sign_in(request):
@@ -48,21 +49,26 @@ def sign_up(request):
 
 
 
-def playground(request, pk=None):
-    if pk is not None:
-        room = get_object_or_404(Room, id=pk)
-        context = {'room': room}
-        return render(request, "playground/" + room.name + ".html")
-    else:
-        rooms = Room.objects.all()
-        context = {'rooms': rooms}
-    return render(request, 'playground/choice.html', context)
+# def playground(request, pk=None):
+#     if pk is not None:
+#         room = get_object_or_404(Room, id=pk)
+#         context = {'room': room}
+#         return render(request, "playground/" + room.name + ".html")
+#     else:
+#         rooms = Room.objects.all()
+#         context = {'rooms': rooms}
+#     return render(request, 'playground/choice.html', context)
 
-def welcome(request):
-    return render(request, 'playground/welcome.html')
+# def welcome(request):
+#     return render(request, 'playground/index.html')
 
 def index(request):
-    return render(request, 'playground/index.html')
+    items = Item.objects.filter(is_sold=False)[0:6]
+    categories = Category.objects.all()
+    return render(request, 'playground/index.html', {
+        'categories': categories,
+        'items': items,
+    })
 
 
 def base(request):

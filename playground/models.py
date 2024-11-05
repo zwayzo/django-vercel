@@ -27,3 +27,14 @@ class User(models.Model):
         
     def __str__(self):
         return self.name
+
+class Team(models.Model):
+    name = models.CharField(max_length=50, primary_key=1)
+    email = models.EmailField(blank=True, max_length=254)
+    phoneNumber = models.IntegerField()
+
+    class Meta:
+        db_table = 'Team'
+    
+    def __str__(self):
+        return self.name

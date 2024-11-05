@@ -10,12 +10,13 @@ from playground import views as pviews
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('admin', admin.site.urls),
-    path('', playground_view.welcome, name='playground'),
+    path('', playground_view.index, name='playground'),
     path('playground/', include('playground.urls')),
     path('_debug_/', include(debug_toolbar.urls)),
     path('sign_in/', pviews.sign_in, name='sign_in'),
     path('sign_up/', pviews.sign_up, name='sign_up'),
     path('contact/', contact, name='contact'),
+    # path('items/', include('item.urls')),
     
 ]
 
