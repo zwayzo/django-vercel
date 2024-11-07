@@ -19,6 +19,7 @@ class Room(models.Model):
 class User(models.Model):
     name = models.CharField(max_length=50, primary_key=True)
     email = models.EmailField(max_length=254, blank=True)
+    # matches = models.IntegerField()
     password = models.CharField(max_length=50)
 
     class Meta:

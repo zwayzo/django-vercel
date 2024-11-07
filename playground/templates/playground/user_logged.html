@@ -3,8 +3,7 @@
 {% block title %}Welcome{% endblock  %}
 
 {% block bar %}
-    <a href="{% url 'sign_up' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Sign up</a>
-    <a href="{% url 'sign_in' %}" class="px-6 py-3 text-lg font-semibold bg-gray-500 text-white rounded-xl hover:bg-teal-700">Sign in</a>
+    <a href="{% url 'logout' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Sign out</a>
 {% endblock  %}
 
 
@@ -18,9 +17,9 @@
                 <div>
                     <a href="{% url 'item:detail' item.id %}">
                         <div>
-                            {% if item.image %}
+                            <{% if item.image %}
                                 <img src="{{ item.image.url }}" class="rounded-xl w-full h-80 object-cover">
-                            {% endif %}   
+                            {% endif %} 
                         </div>                        
                         <div class="p-6 bg-white rounded-b-xl w-full">
                             <h2 class="text-2xl">{{item.name}}</h2>

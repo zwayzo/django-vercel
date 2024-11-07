@@ -13,9 +13,9 @@
             <a href="/" class="text-xl font-semibold">Puddle</a>
             <div class="space-x-6">
                 <a href="{% url 'item:new' %}" class="text-lg font-semibold hover:text-gray-500">New item</a>
-                <a href="#" class="text-lg font-semibold hover:text-gray-500">Browse</a>
-                <a href="{% url 'sign_up' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Sign up</a>
-                <a href="{% url 'sign_in' %}" class="px-6 py-3 text-lg font-semibold bg-gray-500 text-white rounded-xl hover:bg-teal-700">Sign in</a>
+                <a href="" class="text-lg font-semibold hover:text-gray-500">Browse</a>
+                {% block bar %}
+                {% endblock  %}
             </div>
         </nav>
         <div class="px-6 py-6">
@@ -34,5 +34,7 @@
                     <li><a href="{% url 'contact' %}" class="text-lg text-gray-500 hover:text-teal-700">Contact</a></li>
                     <li><a href="{% url 'contact' %}" class="text-lg text-gray-500 hover:text-teal-700">Privacy policy</a></li>
                     <li><a href="{% url 'contact' %}" class="text-lg text-gray-500 hover:text-teal-700">Term of use</a></li>
+                </ul>
+            </div>
     </body>
 </html>
