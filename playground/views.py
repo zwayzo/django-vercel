@@ -5,28 +5,26 @@ import logging
 from .models import Room, User
 from item.models import Category, Item
 from .forms import SignUpForm
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, SESSION_KEY, BACKEND_SESSION_KEY
 
+
+def set_auth(request, user):
+    request.session['authenticated'] = True  # Optionally store an "authenticated" flag
+    request.session[BACKEND_SESSION_KEY] = 'your_custom_auth_backend'
+    request.session[SESSION_KEY] = user.pk
 
 def index(request):
-    if request.user.is_authenticated:
-        print("i'm in")
-    else:
-        print("i'm out")
     items = Item.objects.filter(is_sold=False)[0:6]
     categories = Category.objects.all()
+    authenticated = request.session.get('authenticated', False)
+
     return render(request, 'playground/index.html', {
         'categories': categories,
         'items': items,
+        'authenticated': authenticated,
     })
 
 def elements(request, path):
-    if request.user.is_authenticated:
-        print("i'm in")
-    else:
-        print("i'm out")
-    items = Item.objects.filt
     items = Item.objects.filter(is_sold=False)[0:6]
     categories = Category.objects.all()
     return render(request, path, {
@@ -37,30 +35,20 @@ def elements(request, path):
 
 def sign_in(request):
     if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            print(" valid")
-        else:
-            print(form.errors)
-        if form.is_valid():
-            username = form.cleaned_data.get('name')
-            password = form.cleaned_data.get('password')
-            user = authenticate(request, name=username, password=password)
-            print("before")
-            if user is not None:
-                print("in")
-                login(request, user)
-                messages.success(request, f"Welcome back, {username}!")
-                return redirect('playground/user_logged.html')  # Redirect to the home page after login
-            else:
-                print("out")
-                return redirect('playground/sign_in_failed.html')
-        else:
-            messages.error(request, "Invalid username or password.")
-            return render(request, 'playground/sign_in.html')
-    else:
-        form = AuthenticationForm()
-    return render(request, 'playground/sign_in.html', {'form': form})
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        try:
+            user = User.objects.get(name=username, password=password)
+            set_auth(request, user)
+            # if (request.session.get('authenticated', False)):
+            #     print("yes")
+            # else:
+            #     print("no")
+            return (elements(request, 'playground/user_logged.html'))
+        except User.DoesNotExist:
+            return render(request, 'playground/sign_in_failed.html')
+    return render(request, 'playground/sign_in.html')    
+
 
 def sign_up(request):
     if request.method == 'POST':
@@ -71,13 +59,25 @@ def sign_up(request):
             password = form.cleaned_data['password']
             user = User(name=name, email=email, password=password)
             user.save()
-            messages.success(request, "Account created successfully.")
+            set_auth(request, user)
+            # if (request.session.get('authenticated', False)):
+            #     print("yes")
+            # else:
+            #     print("no")
             return (elements(request, 'playground/user_logged.html'))
         else:
             print(form.errors)
     return render(request, 'playground/sign_up.html')
 
 def sign_out(request):
+    if '_auth_user_id' in request.session:
+        del request.session['_auth_user_id']
+    if 'authenticated' in request.session:
+        del request.session['authenticated']
+    # if (request.session.get('authenticated', False)):
+    #     print("yes")
+    # else:
+    #     print("no")
     return (elements(request, 'playground/index.html'))
 
 

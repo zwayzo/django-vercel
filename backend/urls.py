@@ -18,7 +18,7 @@ urlpatterns = [
     path('sign_up/', pviews.sign_up, name='sign_up'),
     path('sign_out/', pviews.sign_out, name='sign_out'),
     path('contact/', contact, name='contact'),
-    path('logout/', LogoutView.as_view(), name='logout'),
+    # path('logout/', LogoutView.as_view(), name='logout'),
     # path('items/', include('item.urls')),
     
 ]

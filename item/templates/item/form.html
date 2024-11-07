@@ -5,6 +5,17 @@
     
 {% endblock %}
 
+{% block bar %}
+
+    {% if authenticated %}
+        {% comment %} <p>Yes, you are authenticated.</p> {% endcomment %}
+        <a href="{% url 'sign_out' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Sign out</a>
+    {% else %}
+        <a href="{% url 'sign_up' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Sign up</a>
+        <a href="{% url 'sign_in' %}" class="px-6 py-3 text-lg font-semibold bg-gray-500 text-white rounded-xl hover:bg-teal-700">Sign in</a>
+    {% endif %}
+        
+{% endblock  %}
 
 {% block content %}
     
@@ -15,9 +26,19 @@
     <div class="space-y-4">
         {{ form.as_p }}
     </div>
-    <button type="submit" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">
-        Submit
-    </button>
+    
+    {% if authenticated %}
+        <button type="submit" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">
+            Submit
+        </button>
+    {% else %}
+        <p class="text-red-500">
+            <strong>Cannot submit , Pleas  </strong>
+            <a href="{% url 'sign_in' %}" class="text-red-500">Sign in</a>
+            <a href="{% url 'sign_up' %}" class="text-red-500">or Sign up</a>
+        </p>    
+    {% endif %}
+        
 </form>
 
 {% endblock  %}

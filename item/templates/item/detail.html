@@ -1,7 +1,24 @@
 {% extends 'playground/base.html' %}
 
+{% comment %} {% if authenticated %}
+    <p>Yes, you are authenticated.</p>
+{% else %}
+    <p>noooooooo   .</p>
+{% endif %} {% endcomment %}
 
 {% block title %}{{ item.name }}{% endblock %}
+
+{% block bar %}
+
+    {% if authenticated %}
+        {% comment %} <p>Yes, you are authenticated.</p> {% endcomment %}
+        <a href="{% url 'sign_out' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Sign out</a>
+    {% else %}
+        <a href="{% url 'sign_up' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Sign up</a>
+        <a href="{% url 'sign_in' %}" class="px-6 py-3 text-lg font-semibold bg-gray-500 text-white rounded-xl hover:bg-teal-700">Sign in</a>
+    {% endif %}
+        
+{% endblock  %}
 
 
 {% block content %}
