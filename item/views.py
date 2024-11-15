@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 # @login_required
 def detail(request, pk):
     item = get_object_or_404(Item, pk=pk)
+    
     related_items = Item.objects.filter(category=item.category, is_sold=False).exclude(pk=pk)[0:3]
     return render(request, 'item/detail.html', {
         'item': item,
@@ -28,7 +29,9 @@ def new(request):
         print("user_id:", user_id)
         try:
             # Retrieve the user based on the session's stored user ID
-            user = User.objects.get(username=user_id)
+            user = User.objects.get(id=user_id)
+
+            print("after:", user.username)
         except User.DoesNotExist:
             print("catch")
             user = None  # If the user doesn't exist, set to None
@@ -36,7 +39,7 @@ def new(request):
         print("redirect")
         return (redirect(login_url))  # No user is authenticated
     if request.method == 'POST':
-        if User.DoesNotExist:
+        if user.DoesNotExist:
             print("does not exist")
         else:
             print("exist")
@@ -44,10 +47,12 @@ def new(request):
         if form.is_valid():
             item = form.save(commit=False)
             # print()
-            item.created_by = request.user
-            # print("created_by:", item.created_by)
+            item.created_by = user.username
+            # print("created_by:", item.created_by
             item.save()
-            return render('item:detail')
+            return render(request, 'item/detail.html', {
+                'item' : item,
+            })
     else:
         form = NewItemForm()
     return render(request, 'item/form.html',{
