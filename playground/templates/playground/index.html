@@ -4,7 +4,7 @@
 
 {% block bar %}
 
-    {% if authenticated %}
+    {% if user.is_authanticated %}
         {% comment %} <p>Yes, you are authenticated.</p> {% endcomment %}
         <a href="{% url 'sign_out' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Sign out</a>
     {% else %}

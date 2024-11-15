@@ -6,9 +6,10 @@ from django.conf.urls.static import static
 from django.conf import settings
 from playground.views import index, base, contact
 from playground import views as pviews
-from django.contrib.auth.views import LogoutView
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
+    path('accounts/', include('allauth.urls')),
     path('admin/', admin.site.urls),
     path('admin', admin.site.urls),
     path('', playground_view.index, name='playground'),
@@ -18,8 +19,8 @@ urlpatterns = [
     path('sign_up/', pviews.sign_up, name='sign_up'),
     path('sign_out/', pviews.sign_out, name='sign_out'),
     path('contact/', contact, name='contact'),
-    # path('logout/', LogoutView.as_view(), name='logout'),
-    # path('items/', include('item.urls')),
+    # path('sign_in/', view=auth_views.LoginView.as_view(template_name='playground/sign_in.html'), name='sign_in'),
+    # path('logout/', auth_views.LogoutView.as_view(), name='sign_out'),    
     
 ]
 

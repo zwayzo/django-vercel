@@ -10,7 +10,7 @@ class SignUpForm(forms.ModelForm):  # Inherit from forms.ModelForm, not models.M
 
     class Meta:
         model = User
-        fields = ['name', 'email', 'password']  # List the model fields to incl
+        fields = ['username', 'email', 'password']  # List the model fields to incl
     
     def save(self, commit=True):
         user = super().save(commit=False)
