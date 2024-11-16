@@ -20,13 +20,6 @@ def set_auth(request, user):
     request.session['user_name'] = user.name
     request.session['authenticated'] = True  # Optional flag for additional use
 
-    # Update the last login time if desired
-    # update_last_login(None, user)
-    
-    # Alternatively, use Django's login helper
-    # login(request, user)
-
-
 def index(request):
     items = Item.objects.filter(is_sold=False)[0:6]
     categories = Category.objects.all()
@@ -58,20 +51,10 @@ def sign_in(request):
         try:
             user2 = MyUser.objects.get(username=username, password=password)
             user = User.objects.get(username=username)
-            # user.is_staff = False
-            # user.is_superuser = False
-            if request.user.is_authenticated:
-                print("befor it's yes")
-            else:
-                print("befor it's no")
-            # set_auth(request, user)
             login(request, user, backend='django.contrib.auth.backends.ModelBackend') 
-            if request.user.is_authenticated:
-                print("after it's yes")
-            else:
-                print("after it's no")
+
             return (elements(request, 'playground/user_logged.html'))
-        except User.DoesNotExist:
+        except :
             return render(request, 'playground/sign_in_failed.html')
     return render(request, 'playground/sign_in.html')    
 

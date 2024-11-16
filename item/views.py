@@ -47,7 +47,7 @@ def new(request):
         if form.is_valid():
             item = form.save(commit=False)
             # print()
-            item.created_by = user.username
+            item.created_by = request.user
             # print("created_by:", item.created_by
             item.save()
             return render(request, 'item/detail.html', {
