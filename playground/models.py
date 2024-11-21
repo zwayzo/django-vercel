@@ -1,11 +1,7 @@
 from django.db import models
-from django import forms
-from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
 
-from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-from django.db import models
 
 class UserManager(BaseUserManager):
     def create_user(self, username, email, password=None, first_name='DefaultFirst', last_name='DefaultLast', **extra_fields):
@@ -46,6 +42,9 @@ class MyUser(models.Model):
 
 
 class User(AbstractBaseUser):
+    profile_picture = models.URLField(blank=True, null=True)
+    google_id = models.CharField(max_length=255, unique=True, blank=True, null=True)
+
     id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(max_length=254, unique=True)
@@ -119,3 +118,12 @@ class Team(models.Model):
     
     def __str__(self):
         return self.name
+    
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    google_id = models.CharField(max_length=255, null=True, blank=True)
+    profile_picture = models.URLField(null=True, blank=True)
+    
+    def __str__(self):
+        return self.user.username

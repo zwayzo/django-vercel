@@ -4,45 +4,72 @@ from .forms import NewItemForm
 from django.contrib.auth import login, SESSION_KEY, BACKEND_SESSION_KEY
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from allauth.socialaccount.models import SocialAccount
+from django.http import JsonResponse
+
+
+
+def get_google_user_info(request):
+    if request.user.is_authenticated:
+        # Get the SocialAccount linked to the logged-in user (Google account)
+        social_account = SocialAccount.objects.get(user=request.user, provider='google')
+        
+        # Access the raw data (extra_data) returned by Google
+        google_profile = social_account.extra_data
+        
+        # Extract details from the profile
+        name = google_profile.get('name')
+        given_name = google_profile.get('given_name')
+        family_name = google_profile.get('family_name')
+        picture = google_profile.get('picture')
+        sub = google_profile.get('sub')  # Unique user ID from Google
+        email = google_profile.get('email', 'No Email Provided')
+        
+        # You can return this information, render in a template, etc.
+        return {
+            'name': name,
+            'given_name': given_name,
+            'family_name': family_name,
+            'picture': picture,
+            'google_id': sub,
+            'email': email,
+        }
+    else:
+        return None
 
 # @login_required
 def detail(request, pk):
+    # print("user: ", request.user,"\n\n\n\n")
     item = get_object_or_404(Item, pk=pk)
     
     related_items = Item.objects.filter(category=item.category, is_sold=False).exclude(pk=pk)[0:3]
+    if request.user.is_authenticated:
+        user_infos=get_google_user_info(request)
+        item = get_object_or_404(Item, pk=pk)
+        print(f"Name: {user_infos['name']}")
+        print(f"email: {user_infos['email']}")
+        print(f"given_name: {user_infos['given_name']}")
     return render(request, 'item/detail.html', {
         'item': item,
         'related_items': related_items,
     })
 
 
+
 @login_required
 def new(request):
     login_url = f"{reverse('sign_in')}?next={request.path}"
-    if request.user.is_authenticated:
-        print("authenticated")
-    else:
-        print("not authenticated")
     
     if request.user.is_authenticated:
         user_id = request.session.get(SESSION_KEY)
-        print("user_id:", user_id)
         try:
             # Retrieve the user based on the session's stored user ID
             user = User.objects.get(id=user_id)
-
-            print("after:", user.username)
         except User.DoesNotExist:
-            print("catch")
             user = None  # If the user doesn't exist, set to None
     else:
-        print("redirect")
         return (redirect(login_url))  # No user is authenticated
     if request.method == 'POST':
-        if user.DoesNotExist:
-            print("does not exist")
-        else:
-            print("exist")
         form = NewItemForm(request.POST, request.FILES)
         if form.is_valid():
             item = form.save(commit=False)

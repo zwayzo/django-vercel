@@ -7,18 +7,18 @@ from django.urls import reverse
 from django.conf import settings
 from allauth.socialaccount.models import SocialAccount
 from django.http import HttpResponse
+from item.views import get_google_user_info
 
-
-def set_auth(request, user):
-    # Standard Django login for setting up the session correctly
-    request.session[settings.SESSION_COOKIE_NAME] = user.pk
-    request.session['_auth_user_id'] = user.pk  # Django's expected session key for the user's ID
-    request.session['_auth_user_backend'] = 'django.contrib.auth.backends.ModelBackend'  # Specify the backend used
-    # request.session['_auth_user_hash'] = user.get_session_auth_hash()  # Session hash for security
+# def set_auth(request, user):
+#     # Standard Django login for setting up the session correctly
+#     request.session[settings.SESSION_COOKIE_NAME] = user.pk
+#     request.session['_auth_user_id'] = user.pk  # Django's expected session key for the user's ID
+#     request.session['_auth_user_backend'] = 'django.contrib.auth.backends.ModelBackend'  # Specify the backend used
+#     # request.session['_auth_user_hash'] = user.get_session_auth_hash()  # Session hash for security
     
-    # Optionally store additional user information
-    request.session['user_name'] = user.name
-    request.session['authenticated'] = True  # Optional flag for additional use
+#     # Optionally store additional user information
+#     request.session['user_name'] = user.name
+#     request.session['authenticated'] = True  # Optional flag for additional use
 
 def index(request):
     items = Item.objects.filter(is_sold=False)[0:6]
@@ -106,15 +106,8 @@ def sign_out(request):
     #     print("yes")
     # else:
     #     print("no")
-    if request.user.is_authenticated:
-        print("befor it's yes")
-    else:
-        print("befor it's no")
+
     logout(request)
-    if request.user.is_authenticated:
-        print("after it's yes")
-    else:
-        print("after it's no")
     return (elements(request, 'playground/index.html'))
 
 
