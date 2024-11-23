@@ -42,8 +42,8 @@ class MyUser(models.Model):
 
 
 class User(AbstractBaseUser):
-    profile_picture = models.URLField(blank=True, null=True)
-    google_id = models.CharField(max_length=255, unique=True, blank=True, null=True)
+    # profile_picture = models.URLField(blank=True, null=True)
+    # google_id = models.CharField(max_length=255, unique=True, blank=True, null=True)
 
     id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=50, unique=True)

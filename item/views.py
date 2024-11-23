@@ -18,6 +18,7 @@ def get_google_user_info(request):
         google_profile = social_account.extra_data
         
         # Extract details from the profile
+        print(google_profile)
         name = google_profile.get('name')
         given_name = google_profile.get('given_name')
         family_name = google_profile.get('family_name')
@@ -49,6 +50,7 @@ def detail(request, pk):
         print(f"Name: {user_infos['name']}")
         print(f"email: {user_infos['email']}")
         print(f"given_name: {user_infos['given_name']}")
+        # print(f"password: {user_infos['password']}")
     return render(request, 'item/detail.html', {
         'item': item,
         'related_items': related_items,
@@ -86,3 +88,6 @@ def new(request):
         'form': form,
         'title': 'New item',
     })
+
+
+

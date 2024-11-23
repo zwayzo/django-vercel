@@ -49,7 +49,7 @@ def sign_in(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         try:
-            user2 = MyUser.objects.get(username=username, password=password)
+            # user2 = MyUser.objects.get(username=username, password=password)
             user = User.objects.get(username=username)
             login(request, user, backend='django.contrib.auth.backends.ModelBackend') 
 
@@ -80,10 +80,6 @@ def sign_up(request):
             user.save()
             myuser.save()
             login(request, user, backend='django.contrib.auth.backends.ModelBackend') 
-            if request.user.is_authenticated:
-                print("yes loged")
-            else:
-                print("not loged")
             return (elements(request, 'playground/user_logged.html'))
         else:
             print(form.errors)
