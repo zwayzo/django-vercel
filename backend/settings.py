@@ -208,6 +208,20 @@ LOGOUT_URL= 'sign_out'
 LOGIN_REDIRECT_URL= 'index'
 ACCOUNT_LOGOUT_REDIRECT_URL= 'sign_in'
 
+#intra applications infos
+
+CLIENT_ID = "u-s4t2ud-7413a85cce987f14612da88b371feabbc1e4605a382e923b0ac109561a4a4ce6"
+CLIENT_SECRET = "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"
+REDIRECT_URI = "http://localhost:8000/auth/callback/" #should put it in the intra application
+############
+
+#github applications infos
+
+G_CLIENT_ID = "Ov23li9QUYQSSpaB9KnT"
+G_CLIENT_SECRET = "ed87c52e1f8b8a169a1615e2810f9cc4cebf53be"
+G_REDIRECT_URI = "http://localhost:8000/auth/callback/" #should put it in the intra application
+############
+
 
 SOCIALACCOUNT_LOGIN_ON_GET = True
 

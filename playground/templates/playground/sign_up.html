@@ -128,7 +128,9 @@
             </form>
         </form>
         <a href="{% url 'sign_in' %}" class="signin-link">Already have an account? Sign in</a>
-        <a href="{% provider_login_url 'google' %}">Sign up with Google</a>
+        <a href="{% provider_login_url 'google' %}" class="signin-link">Sign up with Google</a>
+        <a href="/auth/login/" class="signin-link">Log In with 42</a>
+        <a href="/login/oauth/authorize" class="signin-link">Log In with github</a>
 
     </div>
 </body>

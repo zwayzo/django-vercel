@@ -1,8 +1,8 @@
 from django.db import models
 from django.utils import timezone
-
+from django.conf import settings
+from item.models import Item
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-
 class UserManager(BaseUserManager):
     def create_user(self, username, email, password=None, first_name='DefaultFirst', last_name='DefaultLast', **extra_fields):
         if not username:
@@ -42,9 +42,7 @@ class MyUser(models.Model):
 
 
 class User(AbstractBaseUser):
-    # profile_picture = models.URLField(blank=True, null=True)
-    # google_id = models.CharField(max_length=255, unique=True, blank=True, null=True)
-
+    profile_picture = models.ImageField(upload_to='profile_images', blank=False, null=True)
     id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(max_length=254, unique=True)
@@ -52,7 +50,10 @@ class User(AbstractBaseUser):
     last_name = models.CharField(max_length=30, default='DefaultLast')
     password = models.CharField(max_length=128)  # Django expects hashed password here
     last_login = models.DateTimeField(null=True, blank=True)
-    date_joined = models.DateTimeField(default=timezone.now)  # Add date_joined with default
+    date_joined = models.DateTimeField(default=timezone.now)
+    # date_birth = models.DateTimeField(null=True, blank=True)
+      # Add date_joined with default
+    # picture = models.ImageField(upload_to='profile_pictures', blank=True, null=True)
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -75,18 +76,12 @@ class User(AbstractBaseUser):
         return self.username
 
 
-class Room(models.Model):
-    #host
-    #topic
-    name = models.CharField(max_length=200)
-    description = models.TextField(null=True, blank=True)
-    #participants
-    updates = models.DateTimeField(auto_now=True)
-    create = models.DateTimeField(auto_now_add=True)
-    
-    def __str__(self):
-        return self.name
-    
+# class Profile(models.Model):
+#     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+#     profile_picture = models.ImageField(upload_to='profile_images',
+# blank=True)
+#     def __str__(self):
+#         return 'Profile for user {}'.format(self.user.username)
 
 # class User(models.Model):
 #     id = models.AutoField(primary_key=True)
@@ -120,10 +115,3 @@ class Team(models.Model):
         return self.name
     
 
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    google_id = models.CharField(max_length=255, null=True, blank=True)
-    profile_picture = models.URLField(null=True, blank=True)
-    
-    def __str__(self):
-        return self.user.username

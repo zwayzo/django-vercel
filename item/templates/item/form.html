@@ -9,6 +9,7 @@
 
     {% if user.is_authenticated %}
         {% comment %} <p>Yes, you are authenticated.</p> {% endcomment %}
+        <a href="{% url 'profile' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Profile</a>
         <a href="{% url 'sign_out' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Sign out</a>
     {% else %}
         <a href="{% url 'sign_up' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Sign up</a>

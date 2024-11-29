@@ -40,17 +40,9 @@ def get_google_user_info(request):
 
 # @login_required
 def detail(request, pk):
-    # print("user: ", request.user,"\n\n\n\n")
     item = get_object_or_404(Item, pk=pk)
     
     related_items = Item.objects.filter(category=item.category, is_sold=False).exclude(pk=pk)[0:3]
-    if request.user.is_authenticated:
-        user_infos=get_google_user_info(request)
-        item = get_object_or_404(Item, pk=pk)
-        print(f"Name: {user_infos['name']}")
-        print(f"email: {user_infos['email']}")
-        print(f"given_name: {user_infos['given_name']}")
-        # print(f"password: {user_infos['password']}")
     return render(request, 'item/detail.html', {
         'item': item,
         'related_items': related_items,
@@ -75,9 +67,7 @@ def new(request):
         form = NewItemForm(request.POST, request.FILES)
         if form.is_valid():
             item = form.save(commit=False)
-            # print()
             item.created_by = request.user
-            # print("created_by:", item.created_by
             item.save()
             return render(request, 'item/detail.html', {
                 'item' : item,

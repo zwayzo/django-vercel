@@ -18,7 +18,15 @@ urlpatterns = [
     path('sign_in/', pviews.sign_in, name='sign_in'),
     path('sign_up/', pviews.sign_up, name='sign_up'),
     path('sign_out/', pviews.sign_out, name='sign_out'),
+    path('profile/', pviews.profile, name='profile'),
     path('contact/', contact, name='contact'),
+    path('auth/login/', pviews.loginView, name='login'),
+    path('auth/callback/', pviews.callback, name='callback'),
+
+    
+    path('login/oauth/authorize', pviews.G_loginView, name='login'),
+    path('callback/', pviews.G_callback, name='callback'),
+    
     # path('sign_in/', view=auth_views.LoginView.as_view(template_name='playground/sign_in.html'), name='sign_in'),
     # path('logout/', auth_views.LogoutView.as_view(), name='sign_out'),    
     
