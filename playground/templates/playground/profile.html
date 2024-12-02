@@ -16,7 +16,7 @@
 <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg overflow-hidden">
     <div class="px-6 py-4">
         <div class="flex items-center">
-            {% if user.profile_picture %}
+            {% if profile.profile_picture %}
             <img src="{{ user.profile_picture.url }}" alt="Profile Picture" />
         {% else %}
             <p>No profile picture available.</p>

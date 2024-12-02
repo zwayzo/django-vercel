@@ -1,16 +1,30 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import  User, MyUser
+from .models import  User, MyUser, Profile
 from item.models import Category, Item
 from .forms import SignUpForm, ProfileForm
-from django.contrib.auth import login, SESSION_KEY, BACKEND_SESSION_KEY, logout
+from django.contrib.auth import login, SESSION_KEY, BACKEND_SESSION_KEY, logout, authenticate
 from django.conf import settings
 from allauth.socialaccount.models import SocialAccount
 from django.http import HttpResponse
 from django.conf import settings
 import requests
 from django.contrib import messages
+from django.contrib.auth.hashers import check_password
+
+import secrets
+import string
 
 
+def generate_password(length=12):
+    # Define the characters that can be used in the password
+    characters = string.ascii_letters + string.digits + string.punctuation
+    
+    # Generate a secure random password
+    password = ''.join(secrets.choice(characters) for _ in range(length))
+    
+    return password
+
+# Genera
 
 def loginView(request):
     # Redirect to 42 API's OAuth authorization URL
@@ -48,7 +62,15 @@ def callback(request):
     user_data = user_response.json()
     mylogin = user_data["login"]
     email = user_data["email"]
-    user, created = User.objects.get_or_create(username=mylogin, defaults={"email": email})
+    first_name = user_data["first_name"]
+    last_name = user_data["last_name"]
+    plain_password = generate_password(24)
+    user, created = User.objects.get_or_create(username=mylogin, defaults={
+    "email": email,
+    "password": generate_password(12),
+    "first_name": first_name,
+    "last_name": last_name,
+})
     # if created:
     #     user.set_password("1234")
     #     user.save()
@@ -156,11 +178,12 @@ def index(request):
 def elements(request, path):
     items = Item.objects.filter(is_sold=False)[0:6]
     categories = Category.objects.all()
+    user = request.user
     return render(request, path, {
         'categories': categories,
         'items': items,
+        'user': user,
     })
-
 
 def sign_in(request):
     # next_url = request.GET.get('next', reverse('index'))
@@ -170,8 +193,9 @@ def sign_in(request):
         try:
             # user2 = MyUser.objects.get(username=username, password=password)
             user = User.objects.get(username=username)
+            if check_password(password, user.password) == False:
+                return render(request, 'playground/sign_in_failed.html')
             login(request, user, backend='django.contrib.auth.backends.ModelBackend') 
-
             return (elements(request, 'playground/user_logged.html'))
         except :
             return render(request, 'playground/sign_in_failed.html')
@@ -209,26 +233,22 @@ def sign_out(request):
     return (elements(request, 'playground/index.html'))
 
 def profile(request):
-    user = request.user
+    user = request.user  # Get the logged-in user
+    profile, created = Profile.objects.get_or_create(user=user)  # Fetch or create the profile
+
     if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES, instance=user)
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
-            # user.first_name = form.cleaned_data.get('first_name', 'DefaultFirstName')
-            # user.last_name = form.cleaned_data.get('last_name', 'DefaultLastName')
-            # user.profile_picture = form.cleaned_data.get('profile_picture')  # Update profile picture if applicable
-            # user.save()
             form.save()
-            # if user.profile_picture:
-            #     print("yes")
-            # else:
-            #     print("no")
-            return redirect(profile)
+            return redirect('profile')  # Redirect to the profile page after saving the form
     else:
-        form = ProfileForm(instance=user)
+        form = ProfileForm(instance=profile)
+
     return render(request, 'playground/profile.html', {
-                'form': form,
-                'user': user,
-            })
+        'form': form,
+        'profile': profile,
+        'user': user,
+    })
 
 def base(request):
     return render(request, 'playground/base.html')

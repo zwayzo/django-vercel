@@ -1,5 +1,5 @@
 from django import forms 
-from .models import User, Team
+from .models import User, Team, Profile
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 # from django.contrib.auth.models import User
 
@@ -21,7 +21,7 @@ class SignUpForm(forms.ModelForm):  # Inherit from forms.ModelForm, not models.M
 
 class ProfileForm(forms.ModelForm):
     class Meta:
-        model = User
+        model = Profile
         fields = ['first_name', 'last_name', 'profile_picture']
         widgets = {
             'first_name': forms.TextInput(attrs={

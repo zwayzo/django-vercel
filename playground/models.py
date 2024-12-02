@@ -1,8 +1,14 @@
 from django.db import models
 from django.utils import timezone
 from django.conf import settings
-from item.models import Item
+from django.dispatch import receiver
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.db.models.signals import post_save
+
+
+
+
+
 class UserManager(BaseUserManager):
     def create_user(self, username, email, password=None, first_name='DefaultFirst', last_name='DefaultLast', **extra_fields):
         if not username:
@@ -42,7 +48,7 @@ class MyUser(models.Model):
 
 
 class User(AbstractBaseUser):
-    profile_picture = models.ImageField(upload_to='profile_images', blank=False, null=True)
+    # profile_picture = models.ImageField(upload_to='profile_images', default='profile_images/default.png', blank=False, null=True)
     id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(max_length=254, unique=True)
@@ -74,6 +80,21 @@ class User(AbstractBaseUser):
 
     def __str__(self):
         return self.username
+
+
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
+    profile_picture = models.ImageField(upload_to='profile_images', default='profile_images/default.png', blank=True, null=True)
+    bio = models.TextField(blank=True, null=True)  # You can add other fields like bio or social media links
+    first_name = models.CharField(max_length=30, default='DefaultFirst')
+    last_name = models.CharField(max_length=30, default='DefaultLast')
+    
+    def __str__(self):
+        return f"Profile of {self.user.username}"
+
+
 
 
 # class Profile(models.Model):
