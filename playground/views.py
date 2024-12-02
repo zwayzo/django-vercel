@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import  User, MyUser, Profile
+from .models import  User, MyUser, myProfile
 from item.models import Category, Item
 from .forms import SignUpForm, ProfileForm
 from django.contrib.auth import login, SESSION_KEY, BACKEND_SESSION_KEY, logout, authenticate
@@ -78,25 +78,6 @@ def callback(request):
 
     # Render user data or save it to the database
     return elements(request, 'playground/user_logged.html')
-
-
-# 'id': 115528, 'email': 'moazzedd@student.1337.ma', 'login': 'moazzedd', 'first_name': 'Mohammed', 
-# 'last_name': 'Azzeddine', 'usual_full_name': 'Mohammed Azzeddine', 'usual_first_name': None, 
-# 'url': 'https://api.intra.42.fr/v2/users/moazzedd', 'phone': 'hidden', 'displayname': 'Mohammed Azzeddine', 
-# 'kind': 'student', 'image': {'link': 'https://cdn.intra.42.fr/users/945f2f5274ec3ca7c9b628cca163f770/moazzedd.JPG',
-# 'versions': {'large': 'https://cdn.intra.42.fr/users/ed119ebc81460391dd65f79cda8b543f/large_moazzedd.JPG', 
-# 'medium': 'https://cdn.intra.42.fr/users/82044492318e815bb8dadbc3c6378035/medium_moazzedd.JPG', 
-# 'small': 'https://cdn.intra.42.fr/users/d36e0d2dd9decbbc214cee745ee6dbb5/small_moazzedd.JPG', 
-# 'micro': 'https://cdn.intra.42.fr/users/dcd34853c48a43089d0f2d42d0069177/micro_moazzedd.JPG'}},
-# 'staff?': False, 'correction_point': 3, 'pool_month': 'july', 'pool_year': '2022', 'location': 'e2r3p10',
-# 'wallet': 145, 'anonymize_date': '2027-11-24T00:00:00.000+01:00', 'data_erasure_date': '2027-11-24T00:00:00.000+01:00', 
-# 'created_at': '2022-06-29T11:20:29.739Z', 'updated_at': '2024-11-24T21:32:25.322Z', 'alumnized_at': None,
-# 'alumni?': False, 'active?': True, 'groups': [], 'cursus_users': [{'id': 173092, 'begin_at': '2022-07-18T08:37:00.000Z',
-#  'end_at': '2022-08-13T08:37:00.000Z', 'grade': None, 'level': 8.85, 'skills': [{'id': 4, 'name': 'Unix', 'level': 10.33},
-#  {'id': 1, 'name': 'Algorithms & AI', 'level': 7.21}, {'id': 3, 'name': 'Rigor', 'level': 5.84}, 
-#  {'id': 14, 'name': 'Adaptation & creativity', 'level': 5.07}], 'cursus_id': 9, 'has_coalition': True, 'blackholed_at': None,
-# 'created_at': '2022-06-29T11:20:29.780Z', 'updated_at': '2022-06-29T11:20:29.780Z', 
-
 
 def G_loginView(request):
     # Redirect to 42 API's OAuth authorization URL
@@ -233,21 +214,23 @@ def sign_out(request):
     return (elements(request, 'playground/index.html'))
 
 def profile(request):
-    user = request.user  # Get the logged-in user
-    # profile, created = Profile.objects.get_or_create(user=user)  # Fetch or create the profile
+    # Get or create the profile for the logged-in user
+    profile, created = myProfile.objects.get_or_create(user=request.user)
 
     if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES, instance=user)
+        # Bind form to the profile instance
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
-            form.save()
-            return redirect('profile')  # Redirect to the profile page after saving the form
+            form.save()  # Save the profile with updated data
+            return redirect('profile')  # Redirect to the same profile page
     else:
-        form = ProfileForm(instance=user)
-
+        # Prepopulate the form with the profile instance
+        form = ProfileForm(instance=profile)
+    print("->:", profile.first_name)
     return render(request, 'playground/profile.html', {
         'form': form,
-        # 'profile': profile,
-        'user': user,
+        'profile': profile,
+        'user': request.user,  # Pass the user for context
     })
 
 def base(request):

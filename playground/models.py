@@ -84,9 +84,9 @@ class User(AbstractBaseUser):
 
 
 
-class Profile(models.Model):
-    id = models.AutoField(primary_key=True)
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
+class myProfile(models.Model):
+    # id = models.AutoField(primary_key=True)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile', primary_key=True)
     profile_picture = models.ImageField(upload_to='profile_images', default='profile_images/default.png', blank=True, null=True)
     bio = models.TextField(blank=True, null=True)  # You can add other fields like bio or social media links
     first_name = models.CharField(max_length=30, default='DefaultFirst')
@@ -97,13 +97,6 @@ class Profile(models.Model):
 
 
 
-
-# class Profile(models.Model):
-#     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-#     profile_picture = models.ImageField(upload_to='profile_images',
-# blank=True)
-#     def __str__(self):
-#         return 'Profile for user {}'.format(self.user.username)
 
 # class User(models.Model):
 #     id = models.AutoField(primary_key=True)
