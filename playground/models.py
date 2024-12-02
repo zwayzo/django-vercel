@@ -85,6 +85,7 @@ class User(AbstractBaseUser):
 
 
 class Profile(models.Model):
+    id = models.AutoField(primary_key=True)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
     profile_picture = models.ImageField(upload_to='profile_images', default='profile_images/default.png', blank=True, null=True)
     bio = models.TextField(blank=True, null=True)  # You can add other fields like bio or social media links

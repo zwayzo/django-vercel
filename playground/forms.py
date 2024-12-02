@@ -22,7 +22,7 @@ class SignUpForm(forms.ModelForm):  # Inherit from forms.ModelForm, not models.M
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['first_name', 'last_name', 'profile_picture']
+        fields = ['first_name', 'last_name']#, 'profile_picture']
         widgets = {
             'first_name': forms.TextInput(attrs={
                 'class': 'w-full py-4 px-6 rounded-xl border'
@@ -30,9 +30,9 @@ class ProfileForm(forms.ModelForm):
             'last_name': forms.TextInput(attrs={
                 'class': 'w-full py-4 px-6 rounded-xl border'
             }),
-            'profile_picture': forms.FileInput(attrs={
-                'class': 'w-full py-4 px-6 rounded-xl border'
-            }),
+            # 'profile_picture': forms.FileInput(attrs={
+            #     'class': 'w-full py-4 px-6 rounded-xl border'
+            # }),
         }
 class TeamForm(forms.ModelForm):
     class Meta:

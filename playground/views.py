@@ -234,19 +234,19 @@ def sign_out(request):
 
 def profile(request):
     user = request.user  # Get the logged-in user
-    profile, created = Profile.objects.get_or_create(user=user)  # Fetch or create the profile
+    # profile, created = Profile.objects.get_or_create(user=user)  # Fetch or create the profile
 
     if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        form = ProfileForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
             form.save()
             return redirect('profile')  # Redirect to the profile page after saving the form
     else:
-        form = ProfileForm(instance=profile)
+        form = ProfileForm(instance=user)
 
     return render(request, 'playground/profile.html', {
         'form': form,
-        'profile': profile,
+        # 'profile': profile,
         'user': user,
     })
 
