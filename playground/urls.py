@@ -6,6 +6,7 @@ from . import views
 
 urlpatterns = [
     path('index/', views.index, name="index"),
+    path('user_detail/<int:id>/', views.User_detail),
     path('items/', include('item.urls')),
     # path('auth/login/', views.login, name='login'),
     # path('auth/callback/', views.callback, name='callback'),

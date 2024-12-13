@@ -6,7 +6,10 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from allauth.socialaccount.models import SocialAccount
 from django.http import JsonResponse
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
+from .serializers import ItemSerializer
 
 
 def get_google_user_info(request):
@@ -81,3 +84,15 @@ def new(request):
 
 
 
+@api_view()
+def Item_detail(request, id):
+    item = get_object_or_404(Item, pk=id)
+    serializer = ItemSerializer(item)
+    return Response(serializer.data)
+
+@api_view()
+def Item_list(request):
+    queryset = Item.objects.all()
+    serializer = ItemSerializer(queryset, many=True)
+    print(serializer.data)
+    return Response(serializer.data)

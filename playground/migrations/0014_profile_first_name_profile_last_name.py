@@ -8,16 +8,3 @@ class Migration(migrations.Migration):
     dependencies = [
         ('playground', '0013_delete_room'),
     ]
-
-    operations = [
-        migrations.AddField(
-            model_name='profile',
-            name='first_name',
-            field=models.CharField(default='DefaultFirst', max_length=30),
-        ),
-        migrations.AddField(
-            model_name='profile',
-            name='last_name',
-            field=models.CharField(default='DefaultLast', max_length=30),
-        ),
-    ]

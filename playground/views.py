@@ -10,7 +10,10 @@ from django.conf import settings
 import requests
 from django.contrib import messages
 from django.contrib.auth.hashers import check_password
-
+from .serializer import userSerializer
+from django.http import JsonResponse
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 import secrets
 import string
 
@@ -193,7 +196,7 @@ def sign_up(request):
 
             # user = User.objects.(nam=nam, password=password, email=email)
 
-            myuser = MyUser(username=username, email=email, password=password)
+            # myuser = MyUser(username=username, email=email, password=password)
             user = User(username=username, email=email, password=password)
             user.set_password(password)
             user.is_staff = False
@@ -202,7 +205,7 @@ def sign_up(request):
             user.last_name = form.cleaned_data.get('last_name', 'DefaultLastName')
             
             user.save()
-            myuser.save()
+            # myuser.save()
             login(request, user, backend='django.contrib.auth.backends.ModelBackend') 
             return (elements(request, 'playground/user_logged.html'))
         else:
@@ -263,3 +266,11 @@ def profile_view(request):
             return HttpResponse("bad")
 
     return HttpResponse("gppppd")
+
+
+
+@api_view()
+def User_detail(request, id):
+    user = get_object_or_404(User, pk=id)
+    serializer = userSerializer(user)
+    return Response(serializer.data)

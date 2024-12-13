@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'item',
     'playground.apps.PlaygroundConfig',
+    'rest_framework',
 
     'django.contrib.sites',
     'allauth',
@@ -73,6 +74,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "debug_toolbar.middleware.DebugToolbarMiddleware",
     'allauth.account.middleware.AccountMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 INTERNAL_IPS = [
@@ -122,9 +124,9 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "postgres",
-        "USER": "zizo",
+        "USER": "postgres",
         "PASSWORD": "mypassword",
-        "HOST": "127.0.0.1",
+        "HOST": "db",
         "PORT": "5432",
     }
 }
@@ -167,6 +169,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "playground/static"]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
